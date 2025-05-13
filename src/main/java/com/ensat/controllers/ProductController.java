@@ -7,23 +7,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-
-
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  * Product controller.
  */
-@RestController("/products")
+@Controller
+@RequestMapping("/products")
 public class ProductController {
-     @Autowired
-     private ProductService productService;
 
-   
+    @Autowired
+    private ProductService productService;
 
     /**
      * List all products.
@@ -31,11 +29,11 @@ public class ProductController {
      * @param model
      * @return
      */
-   @GetMapping("/")
+    @GetMapping("/")
     public String list(Model model) {
         model.addAttribute("products", productService.listAllProducts());
         System.out.println("Returning products:");
-        return "products";
+        return "products"; // Thymeleaf template name
     }
 
     /**
@@ -48,18 +46,20 @@ public class ProductController {
     @GetMapping("/{id}")
     public String showProduct(@PathVariable Integer id, Model model) {
         model.addAttribute("product", productService.getProductById(id));
-        return "productshow";
-    }
-
-    // Afficher le formulaire de modification du Product
-    @PutMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("product", productService.getProductById(id));
-        return "productform";
+        return "productshow"; // Thymeleaf template name
     }
 
     /**
-     * New product.
+     * Show the product edit form.
+     */
+    @PutMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("product", productService.getProductById(id));
+        return "productform"; // Thymeleaf template name
+    }
+
+    /**
+     * Show new product form.
      *
      * @param model
      * @return
@@ -67,11 +67,11 @@ public class ProductController {
     @RequestMapping("product/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
-        return "productform";
+        return "productform"; // Thymeleaf template name
     }
 
     /**
-     * Save product to database.
+     * Save product to the database.
      *
      * @param product
      * @return
@@ -79,7 +79,7 @@ public class ProductController {
     @RequestMapping(value = "product", method = RequestMethod.POST)
     public String saveProduct(Product product) {
         productService.saveProduct(product);
-        return "redirect:/product/" + product.getId();
+        return "redirect:/product/" + product.getId(); // Redirect after saving
     }
 
     /**
@@ -91,7 +91,6 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Integer id) {
         productService.deleteProduct(id);
-        return "redirect:/products";
+        return "redirect:/products"; // Redirect to list of products
     }
-
 }
