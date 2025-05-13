@@ -1,18 +1,12 @@
 package com.ensat.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-/**
- * Product entity.
- */
 @Entity
 @Getter
 @Setter
@@ -20,14 +14,14 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Better for MySQL
     private Integer id;
 
     @Version
-    private Integer version;
+    private Integer version; // Optional: for optimistic locking
 
-    private String productId;
     private String name;
-    private BigDecimal price;
+    private String description; // Add if needed
+    private BigDecimal price; // Better than Double for currency
 
 }
