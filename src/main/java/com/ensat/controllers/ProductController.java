@@ -32,7 +32,7 @@ public class ProductController {
     // Show new product form
     @GetMapping("/new")
     public String newProduct(Model model) {
-        model.addAttribute("product", new Product());
+        model.addAttribute("products", new Product());
         return "productform";  // this is your Thymeleaf template
     }
 
