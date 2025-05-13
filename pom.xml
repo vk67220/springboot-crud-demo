@@ -8,7 +8,7 @@
 
     <groupId>com.ensat</groupId>
     <artifactId>spring-boot-web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>Spring Boot Web Application</name>
@@ -27,6 +27,7 @@
     </properties>
 
     <dependencies>
+        <!-- Spring Boot dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -48,6 +49,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Lombok for getters, setters, and constructors -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version> <!-- Or latest version -->
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -60,5 +69,15 @@
             </plugin>
         </plugins>
     </build>
+         <distributionManagement>
+        <repository>
+           <id>maven-releases</id>
+           <url>http://74.225.184.133:8081/repository/maven-releases/</url>      
+           </repository>
+        <snapshotRepository>
+           <id>maven-snapshots</id>
+           <url>http://74.225.184.133:8081/repository/maven-snapshots/</url>    
+        </snapshotRepository>
+</distributionManagement>
 
 </project>
