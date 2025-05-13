@@ -1,5 +1,5 @@
-# Use a lightweight Java runtime
-FROM openjdk:8-jdk-alpine
+# Use a lightweight Java 17 runtime
+FROM openjdk:17-jdk-slim
 
 # Set working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/my-custom-app.jar app.jar
 
 # Expose the default Spring Boot port
-EXPOSE 8080
+EXPOSE 6767
 
 # Command to run the JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
